@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excluir Produto</title>
+    <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+    <header>
+        <h1>Amazon Clone</h1>
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="add.html">Adicionar Produto</a>
+            <a href="delete.html">Excluir Produto</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Excluir Produto</h2>
+        <form id="formDelete">
+            <input type="text" id="idProduto" placeholder="ID do Produto" required>
+            <button type="submit">Excluir</button>
+        </form>
+    </main>
+
+    <script src="js/main.js"></script>
+    <script>
+        document.getElementById("formDelete").addEventListener("submit", deletarProduto);
+    </script>
+</body>
+</html>
