@@ -1,5 +1,7 @@
 const apiKey = "f4EPliXYJEFj6GqPj8tGWDhJ";
-const urlBase = `https://api.bestbuy.com/v1/products(categoryPath.name="All%20Flat-Panel%20TVs")?format=json&show=sku,name,salePrice,image&apiKey=${apiKey}`;
+
+const urlBase = "http://localhost:3000/produtos";
+
 
 // GET
 async function listarProdutos() {
@@ -8,11 +10,17 @@ async function listarProdutos() {
     try {
         const res = await fetch(urlBase);
         const data = await res.json();
+
+        if (!data.products || data.products.length === 0) {
+            container.innerHTML = "Nenhum produto encontrado.";
+            return;
+        }
+
         container.innerHTML = "";
         data.products.forEach(produto => {
             container.innerHTML += `
                 <div class="produto">
-                    <img src="${produto.image}" alt="${produto.name}">
+                    <img src="${produto.image}" alt="${produto.name}" style="width:150px;">
                     <h3>${produto.name}</h3>
                     <p>Preço: $${produto.salePrice}</p>
                     <small>ID: ${produto.sku}</small>
@@ -21,7 +29,7 @@ async function listarProdutos() {
         });
     } catch (err) {
         container.innerHTML = "Erro ao carregar produtos.";
-        console.error(err);
+        console.error("Erro na requisição:", err);
     }
 }
 
@@ -31,7 +39,6 @@ async function adicionarProduto(e) {
     const nome = document.getElementById("nome").value;
     const preco = document.getElementById("preco").value;
 
-    // Simulação com JSONPlaceholder
     const res = await fetch("https://jsonplaceholder.typicode.com/posts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
